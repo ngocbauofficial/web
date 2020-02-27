@@ -1,0 +1,197 @@
+﻿@model FoxNetSoft.Plugin.Misc.Pagespeed.Models.PagespeedSettingsModel
+@using System.Web.Mvc.Html
+@using Nop.Web.Framework
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#@Html.FieldIdFor(model => model.EnableOptimizationCSS)").click(toggleOptimizationCSS);
+            $("#@Html.FieldIdFor(model => model.EnableInlineCSSStyleInHtmlBody)").click(toggleInlineCSSStyleInHtmlBody);
+            $("#@Html.FieldIdFor(model => model.EnableLoadAsyncCSSStyle)").click(toggleLoadAsyncCSSStyle);
+
+
+            $("#@Html.FieldIdFor(m => m.EnableMoveCSSStyle)").change(function () {
+                var selectedItem = $(this).val();
+                if (selectedItem == "@(FoxNetSoft.Plugin.Misc.Pagespeed.ScriptPosition.Footer)"
+                    && $('#@Html.FieldIdFor(model => model.EnableOptimizationCSS)').is(':checked')) {
+                    $('#pnlMoveExternalCSSStyle').show();
+                }
+                else {
+                    $('#pnlMoveExternalCSSStyle').hide();
+                }
+            }).change();
+
+            toggleOptimizationCSS();
+            toggleLoadAsyncCSSStyle();
+
+        });
+
+        function toggleOptimizationCSS() {
+            if ($('#@Html.FieldIdFor(model => model.EnableOptimizationCSS)').is(':checked')) {
+                $('#pnlEnableInlineCSSStyleInHtmlBody, #pnlEnableLoadAsyncCSSStyle, #pnlEnableMoveCSSStyle, #pncCriticalPathCSS').show();
+                $("#@Html.FieldIdFor(m => m.EnableMoveCSSStyle)").change();
+            }
+            else {
+                $('#pnlEnableInlineCSSStyleInHtmlBody, #pnlEnableLoadAsyncCSSStyle, #pnlEnableMoveCSSStyle, #pncCriticalPathCSS').hide();
+                $('#pnlMoveExternalCSSStyle').hide();
+            }
+            toggleLoadAsyncCSSStyle();
+            toggleInlineCSSStyleInHtmlBody();
+        }
+        function toggleLoadAsyncCSSStyle() {
+            if ($('#@Html.FieldIdFor(model => model.EnableOptimizationCSS)').is(':checked')
+                && $('#@Html.FieldIdFor(model => model.EnableLoadAsyncCSSStyle)').is(':checked')) {
+                $('#pncNotLoadedAsyncCSSStyles').show();
+            }
+            else {
+                $('#pncNotLoadedAsyncCSSStyles').hide();
+            }
+        }
+        function toggleInlineCSSStyleInHtmlBody() {
+            if ($('#@Html.FieldIdFor(model => model.EnableOptimizationCSS)').is(':checked')
+                && $('#@Html.FieldIdFor(model => model.EnableInlineCSSStyleInHtmlBody)').is(':checked')) {
+                $('#pncNotInlineCSSStyles, #pnnCssInlineMaxBytes').show();
+            }
+            else {
+                $('#pncNotInlineCSSStyles, #pnnCssInlineMaxBytes').hide();
+            }
+        }
+
+</script>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>Optimization of CSS styles</p>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableOptimizationCSS)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableOptimizationCSS)
+                    @Html.ValidationMessageFor(m => m.EnableOptimizationCSS)
+                </div>
+            </div>
+            <div class="form-group" id="pncCriticalPathCSS">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.CriticalPathCSS_OverrideForStore, model => model.CriticalPathCSS, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(m => m.CriticalPathCSS)
+                </div>
+                <div class="col-md-9">
+                    <p>If you want to use 'Critical Path CSS' we advise you to use this service <a href="https://jonassebastianohlsson.com/criticalpathcssgenerator/" target="blank">https://jonassebastianohlsson.com/criticalpathcssgenerator/</a>.</p>
+                    @Html.NopTextAreaFor(m => m.CriticalPathCSS)
+                    @Html.ValidationMessageFor(m => m.CriticalPathCSS)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlEnableMoveCSSStyle">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableMoveCSSStyle)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopDropDownListFor(m => m.EnableMoveCSSStyle, Model.EnableMoveCSSStyleValues)
+                    @Html.ValidationMessageFor(m => m.EnableMoveCSSStyle)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlMoveExternalCSSStyle">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.MoveExternalCSSStyle)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.MoveExternalCSSStyle)
+                    @Html.ValidationMessageFor(m => m.MoveExternalCSSStyle)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlEnableInlineCSSStyleInHtmlBody">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableInlineCSSStyleInHtmlBody)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableInlineCSSStyleInHtmlBody)
+                    @Html.ValidationMessageFor(m => m.EnableInlineCSSStyleInHtmlBody)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnnCssInlineMaxBytes">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.CssInlineMaxBytes)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.CssInlineMaxBytes)
+                    @Html.ValidationMessageFor(m => m.CssInlineMaxBytes)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pncNotInlineCSSStyles">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.NotInlineCSSStyles)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopTextAreaFor(m => m.NotInlineCSSStyles)
+                    @Html.ValidationMessageFor(m => m.NotInlineCSSStyles)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlEnableLoadAsyncCSSStyle">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableLoadAsyncCSSStyle)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableLoadAsyncCSSStyle)
+                    @Html.ValidationMessageFor(m => m.EnableLoadAsyncCSSStyle)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pncNotLoadedAsyncCSSStyles">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.NotLoadedAsyncCSSStyles)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopTextAreaFor(m => m.NotLoadedAsyncCSSStyles)
+                    @Html.ValidationMessageFor(m => m.NotLoadedAsyncCSSStyles)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                    <b>@T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.CssStyleUrl.Hint")</b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.CssStyleUrl)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.CssStyleUrl)
+                    @Html.ValidationMessageFor(m => m.CssStyleUrl)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                    <button type="submit" name="minifycssstyle" id="minifycssstyle" class="btn btn-primary">
+                        @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.CssStyleUrl.Button")
+                    </button>
+                    <text>&nbsp;</text>
+                    @Html.ActionConfirmation("minifycssstyle")
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                    <b>@T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.TaskCssStyle.Hint")</b>
+                    <br />
+                    <button type="submit" name="startcssminifytask" id="startcssminifytask" class="btn btn-primary">
+                        @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.TaskCssStyle.Button")
+                    </button>
+                    <text>&nbsp;</text>
+                    @Html.ActionConfirmation("startcssminifytask")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>NopCommerce settings</p>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.EnableCssBundling_OverrideForStore, model => model.EnableCssBundling, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(m => m.EnableCssBundling)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableCssBundling)
+                    @Html.ValidationMessageFor(m => m.EnableCssBundling)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@model FoxNetSoft.Plugin.Misc.Pagespeed.Models.PagespeedSettingsModel
+@using System.Web.Mvc.Html
+@using Nop.Web.Framework
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>
+                How to enable GZIp for SVG (old IIS).
+                <br />
+                If you don't have any problem with SVG you needn't do anything.
+                <br />
+                Read additional information about it <a href="http://stackoverflow.com/questions/14410331/cant-get-iis7-to-gzip-font-face-font-files/23940235#23940235" target="blank">http://stackoverflow.com/questions/14410331/cant-get-iis7-to-gzip-font-face-font-files/23940235#23940235</a>.
+            </p>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>
+                If you need you can add the tag <b>hreflang</b> for each page. <br />
+                It's important for SEO.<br />
+                Read additional information about it <a href="https://support.google.com/webmasters/answer/6059209" target="blank">https://support.google.com/webmasters/answer/6059209</a>.
+            </p>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableTaghreflang)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableTaghreflang)
+                    @Html.ValidationMessageFor(m => m.EnableTaghreflang)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>
+                GZip Compression for IIS.<br />
+                We recommend to enable it for all IIS.<br />
+                Read additional information about it <a href="http://stackoverflow.com/questions/25580078/how-to-enable-gzip-compression-in-iis-7-5" target="blank">http://stackoverflow.com/questions/25580078/how-to-enable-gzip-compression-in-iis-7-5</a>.<br />
+                <b>Important.</b><br />
+                Some of hosting providers (ex. www.smarterasp.net) use own GZip Compression. You must enable this parameter, because hosting providers compressed page before minification.
+            </p>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableGZip)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableGZip)
+                    @Html.ValidationMessageFor(m => m.EnableGZip)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>
+                You can disable minification for Admins.<br />
+                This feature will help you to debug your store online, but another customers and Google bots will see minified version of your site.
+            </p>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.PassMinificationForAdmin)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.PassMinificationForAdmin)
+                    @Html.ValidationMessageFor(m => m.PassMinificationForAdmin)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

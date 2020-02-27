@@ -1,0 +1,94 @@
+﻿@model FoxNetSoft.Plugin.Misc.Pagespeed.Models.PagespeedSettingsModel
+@using System.Web.Mvc.Html
+@using Nop.Web.Framework
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#@Html.FieldIdFor(model => model.EnableMinifyPicture)").click(toggleMinifyPicture);
+            toggleMinifyPicture();
+        });
+
+        function toggleMinifyPicture() {
+            if ($('#@Html.FieldIdFor(model => model.EnableMinifyPicture)').is(':checked')) {
+                $('#pndServeImagesInNextGenFormats, #pndLastPictureOptimizationDateTimeUtc, #pncPictureFolders').show();
+            }
+            else {
+                $('#pndServeImagesInNextGenFormats, #pndLastPictureOptimizationDateTimeUtc, #pncPictureFolders').hide();
+            }
+        }
+</script>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableMinifyPicture)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableMinifyPicture)
+                    @Html.ValidationMessageFor(m => m.EnableMinifyPicture)
+                </div>
+            </div>
+            <div class="form-group" id="pndServeImagesInNextGenFormats">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.ServeImagesInNextGenFormats)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.ServeImagesInNextGenFormats)
+                    @Html.ValidationMessageFor(m => m.ServeImagesInNextGenFormats)
+                </div>
+            </div>
+            <div class="form-group" id="pndLastPictureOptimizationDateTimeUtc">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.LastPictureOptimizationDateTimeUtc)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.LastPictureOptimizationDateTimeUtc)
+                    @Html.ValidationMessageFor(m => m.LastPictureOptimizationDateTimeUtc)
+                </div>
+            </div>
+            <div class="form-group" id="pncPictureFolders">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.PictureFolders)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopTextAreaFor(m => m.PictureFolders)
+                    @Html.ValidationMessageFor(m => m.PictureFolders)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                    <b>@T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.PictureUrl.Hint")</b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.PictureUrl)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.PictureUrl)
+                    @Html.ValidationMessageFor(m => m.PictureUrl)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                    <button type="submit" name="minifypicture" id="minifypicture" class="btn btn-primary">
+                        @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.PictureUrl.Button")
+                    </button>
+                    <text>&nbsp;</text>
+                    @Html.ActionConfirmation("minifypicture")
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                    <b>@T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.TaskPicture.Hint")</b>
+                    <br />
+                    <button type="submit" name="startpicturetask" id="startpicturetask" class="btn btn-primary">
+                        @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.TaskPicture.Button")
+                    </button>
+                    <text>&nbsp;</text>
+                    @Html.ActionConfirmation("startpicturetask")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+﻿@model FoxNetSoft.Plugin.Misc.Pagespeed.Models.PagespeedSettingsModel
+@using System.Web.Mvc.Html
+@using Nop.Web.Framework
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#@Html.FieldIdFor(model => model.EnableCDN)").click(toggleEnableCDN);
+        $("#@Html.FieldIdFor(model => model.EnableCDNPicture)").click(toggleEnableCDNPicture);
+        $("#@Html.FieldIdFor(model => model.EnableCDNCSS)").click(toggleEnableCDNCSS);
+        $("#@Html.FieldIdFor(model => model.EnableCDNJS)").click(toggleEnableCDNJS);
+
+        toggleEnableCDNPicture();
+        toggleEnableCDNCSS();
+        toggleEnableCDNJS();
+        toggleEnableCDN();
+    });
+
+    function toggleEnableCDN() {
+        if ($('#@Html.FieldIdFor(model => model.EnableCDN)').is(':checked')) {
+            $('#pnEnableCDN').show();
+        }
+        else {
+            $('#pnEnableCDN').hide();
+        }
+    }
+    function toggleEnableCDNPicture() {
+        if ($('#@Html.FieldIdFor(model => model.EnableCDNPicture)').is(':checked')) {
+            $('#pnCDNPictureUrl').show();
+        }
+        else {
+            $('#pnCDNPictureUrl').hide();
+        }
+    }
+    function toggleEnableCDNCSS() {
+        if ($('#@Html.FieldIdFor(model => model.EnableCDNCSS)').is(':checked')) {
+            $('#pnCDNCSSUrl').show();
+        }
+        else {
+            $('#pnCDNCSSUrl').hide();
+        }
+    }
+    function toggleEnableCDNJS() {
+        if ($('#@Html.FieldIdFor(model => model.EnableCDNJS)').is(':checked')) {
+            $('#pnCDNJSUrl').show();
+        }
+        else {
+            $('#pnCDNJSUrl').hide();
+        }
+    }
+</script>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.EnableCDN_OverrideForStore, model => model.EnableCDN, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(model => model.EnableCDN)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(model => model.EnableCDN)
+                    @Html.ValidationMessageFor(model => model.EnableCDN)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default" id="pnEnableCDN">
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.EnableCDNPicture_OverrideForStore, model => model.EnableCDNPicture, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(m => m.EnableCDNPicture)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableCDNPicture)
+                    @Html.ValidationMessageFor(m => m.EnableCDNPicture)
+                </div>
+            </div>
+            <div class="form-group" id="pnCDNPictureUrl">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.CDNPictureUrl_OverrideForStore, model => model.CDNPictureUrl, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(m => m.CDNPictureUrl)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.CDNPictureUrl)
+                    @Html.ValidationMessageFor(m => m.CDNPictureUrl)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.EnableCDNCSS_OverrideForStore, model => model.EnableCDNCSS, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(m => m.EnableCDNCSS)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableCDNCSS)
+                    @Html.ValidationMessageFor(m => m.EnableCDNCSS)
+                </div>
+            </div>
+            <div class="form-group" id="pnCDNCSSUrl">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.CDNCSSUrl_OverrideForStore, model => model.CDNCSSUrl, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(m => m.CDNCSSUrl)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.CDNCSSUrl)
+                    @Html.ValidationMessageFor(m => m.CDNCSSUrl)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.EnableCDNJS_OverrideForStore, model => model.EnableCDNJS, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(m => m.EnableCDNJS)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableCDNJS)
+                    @Html.ValidationMessageFor(m => m.EnableCDNJS)
+                </div>
+            </div>
+            <div class="form-group" id="pnCDNJSUrl">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.CDNJSUrl_OverrideForStore, model => model.CDNJSUrl, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(m => m.CDNJSUrl)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.CDNJSUrl)
+                    @Html.ValidationMessageFor(m => m.CDNJSUrl)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

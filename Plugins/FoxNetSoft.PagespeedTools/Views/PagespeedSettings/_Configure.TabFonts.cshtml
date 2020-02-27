@@ -1,0 +1,52 @@
+﻿@model FoxNetSoft.Plugin.Misc.Pagespeed.Models.PagespeedSettingsModel
+@using System.Web.Mvc.Html
+@using Nop.Web.Framework
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#@Html.FieldIdFor(model => model.EnableOptimizationFonts)").click(toggleOptimizationFonts);
+            toggleOptimizationFonts();
+        });
+
+        function toggleOptimizationFonts() {
+            if ($('#@Html.FieldIdFor(model => model.EnableOptimizationFonts)').is(':checked')) {
+                $('#pnlEnableLoadAsyncFonts, #pnlEnableMoveFonts').show();
+            }
+            else {
+                $('#pnlEnableLoadAsyncFonts, #pnlEnableMoveFonts').hide();
+            }
+        }
+</script>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>Optimization of Fonts</p>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableOptimizationFonts)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableOptimizationFonts)
+                    @Html.ValidationMessageFor(m => m.EnableOptimizationFonts)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlEnableMoveFonts">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableMoveFonts)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopDropDownListFor(m => m.EnableMoveFonts, Model.EnableMoveFontsValues)
+                    @Html.ValidationMessageFor(m => m.EnableMoveFonts)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlEnableLoadAsyncFonts">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableLoadAsyncFonts)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableLoadAsyncFonts)
+                    @Html.ValidationMessageFor(m => m.EnableLoadAsyncFonts)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

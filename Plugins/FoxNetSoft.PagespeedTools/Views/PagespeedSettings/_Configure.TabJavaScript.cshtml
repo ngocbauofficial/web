@@ -1,0 +1,132 @@
+﻿@model FoxNetSoft.Plugin.Misc.Pagespeed.Models.PagespeedSettingsModel
+@using System.Web.Mvc.Html
+@using Nop.Web.Framework
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#@Html.FieldIdFor(model => model.EnableOptimizationJS)").click(toggleOptimizationJS);
+            $("#@Html.FieldIdFor(model => model.EnableInlineJSInHtmlBody)").click(toggleInlineJSInHtmlBody);
+
+            toggleOptimizationJS();
+        });
+
+        function toggleOptimizationJS() {
+            if ($('#@Html.FieldIdFor(model => model.EnableOptimizationJS)').is(':checked')) {
+                $('#pnlEnableInlineJSInHtmlBody, #pnlEnableMoveJS').show();
+            }
+            else {
+                $('#pnlEnableInlineJSInHtmlBody, #pnlEnableMoveJS').hide();
+            }
+            toggleInlineJSInHtmlBody();
+        }
+
+        function toggleInlineJSInHtmlBody() {
+            if ($('#@Html.FieldIdFor(model => model.EnableOptimizationJS)').is(':checked')
+                && $('#@Html.FieldIdFor(model => model.EnableInlineJSInHtmlBody)').is(':checked')) {
+                $('#pncNotInlineJSs, #pnnJSInlineMaxBytes').show();
+            }
+            else {
+                $('#pncNotInlineJSs, #pnnJSInlineMaxBytes').hide();
+            }
+        }
+</script>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>Optimization of JavaScript</p>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableOptimizationJS)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableOptimizationJS)
+                    @Html.ValidationMessageFor(m => m.EnableOptimizationJS)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlEnableMoveJS">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableMoveJS)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopDropDownListFor(m => m.EnableMoveJS, Model.EnableMoveJSValues)
+                    @Html.ValidationMessageFor(m => m.EnableMoveJS)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlEnableInlineJSInHtmlBody">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableInlineJSInHtmlBody)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableInlineJSInHtmlBody)
+                    @Html.ValidationMessageFor(m => m.EnableInlineJSInHtmlBody)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnnJSInlineMaxBytes">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.JSInlineMaxBytes)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.JSInlineMaxBytes)
+                    @Html.ValidationMessageFor(m => m.JSInlineMaxBytes)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pncNotInlineJSs">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.NotInlineJSs)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopTextAreaFor(m => m.NotInlineJSs)
+                    @Html.ValidationMessageFor(m => m.NotInlineJSs)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                    <b>@T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.JavaScriptUrl.Hint")</b>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.JavaScriptUrl)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.JavaScriptUrl)
+                    @Html.ValidationMessageFor(m => m.JavaScriptUrl)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                    <button type="submit" name="minifyjavascript" id="minifyjavascript" class="btn btn-primary">
+                        @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.JavaScriptUrl.Button")
+                    </button>
+                    <text>&nbsp;</text>
+                    @Html.ActionConfirmation("minifyjavascript")
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                    <b>@T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.TaskJavaScript.Hint")</b>
+                    <br />
+                    <button type="submit" name="startjsminifytask" id="startjsminifytask" class="btn btn-primary">
+                        @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.TaskJavaScript.Button")
+                    </button>
+                    <text>&nbsp;</text>
+                    @Html.ActionConfirmation("startjsminifytask")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>NopCommerce settings</p>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.OverrideStoreCheckboxFor(model => model.EnableJsBundling_OverrideForStore, model => model.EnableJsBundling, Model.ActiveStoreScopeConfiguration)
+                    @Html.NopLabelFor(m => m.EnableJsBundling)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableJsBundling)
+                    @Html.ValidationMessageFor(m => m.EnableJsBundling)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

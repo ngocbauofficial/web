@@ -1,0 +1,97 @@
+﻿@model FoxNetSoft.Plugin.Misc.Pagespeed.Models.PagespeedSettingsModel
+@using System.Web.Mvc.Html
+@using Nop.Web.Framework
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#@Html.FieldIdFor(model => model.EnableMinifyHtml)").click(toggleMinifyHtml);
+            toggleMinifyHtml();
+        });
+
+        function toggleMinifyHtml() {
+            if ($('#@Html.FieldIdFor(model => model.EnableMinifyHtml)').is(':checked')) {
+                $('#pnlRemoveHtmlComments, #pnlRemoveHtmlCommentsFromScriptsAndStyles, #pnlRemoveCdataSectionsFromScriptsAndStyles, #pnlUseShortDoctype, #pnlRemoveOptionalEndTags, #pncIgnoredUrls, #pnlDisableMinifyHtmlPageSize').show();
+            }
+            else {
+                $('#pnlRemoveHtmlComments, #pnlRemoveHtmlCommentsFromScriptsAndStyles, #pnlRemoveCdataSectionsFromScriptsAndStyles, #pnlUseShortDoctype, #pnlRemoveOptionalEndTags, #pncIgnoredUrls, #pnlDisableMinifyHtmlPageSize').hide();
+            }
+        }
+</script>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>Optimization of HTML</p>
+            <div class="form-group">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.EnableMinifyHtml)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.EnableMinifyHtml)
+                    @Html.ValidationMessageFor(m => m.EnableMinifyHtml)
+                </div>
+            </div>
+            <div class="form-group" id="pnlDisableMinifyHtmlPageSize">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.DisableMinifyHtmlPageSize)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.DisableMinifyHtmlPageSize)
+                    @Html.ValidationMessageFor(m => m.DisableMinifyHtmlPageSize)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlRemoveHtmlComments">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.RemoveHtmlComments)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.RemoveHtmlComments)
+                    @Html.ValidationMessageFor(m => m.RemoveHtmlComments)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlRemoveHtmlCommentsFromScriptsAndStyles">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.RemoveHtmlCommentsFromScriptsAndStyles)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.RemoveHtmlCommentsFromScriptsAndStyles)
+                    @Html.ValidationMessageFor(m => m.RemoveHtmlCommentsFromScriptsAndStyles)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlRemoveCdataSectionsFromScriptsAndStyles">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.RemoveCdataSectionsFromScriptsAndStyles)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.RemoveCdataSectionsFromScriptsAndStyles)
+                    @Html.ValidationMessageFor(m => m.RemoveCdataSectionsFromScriptsAndStyles)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlUseShortDoctype">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.UseShortDoctype)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.UseShortDoctype)
+                    @Html.ValidationMessageFor(m => m.UseShortDoctype)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pnlRemoveOptionalEndTags">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.RemoveOptionalEndTags)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopEditorFor(m => m.RemoveOptionalEndTags)
+                    @Html.ValidationMessageFor(m => m.RemoveOptionalEndTags)
+                </div>
+            </div>
+            <div class="form-group advanced-setting" id="pncIgnoredUrls">
+                <div class="col-md-3">
+                    @Html.NopLabelFor(m => m.IgnoredUrls)
+                </div>
+                <div class="col-md-9">
+                    @Html.NopTextAreaFor(m => m.IgnoredUrls)
+                    @Html.ValidationMessageFor(m => m.IgnoredUrls)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,139 @@
+﻿@{
+    Layout = "";
+    Html.SetActiveMenuItemSystemName("FoxNetSoft.PagespeedTools.Configure");
+}
+@model FoxNetSoft.Plugin.Misc.Pagespeed.Models.PagespeedSettingsModel
+@using System.Web.Mvc.Html
+@using Nop.Web.Framework
+@using Nop.Web.Framework.UI
+@Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })
+@Html.Action("Mode", "Setting", new { area = "Admin" })
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("Admin.Configuration.Settings.GeneralCommon")
+        </h1>
+        <div class="pull-right">
+            <button type="submit" name="save" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                @T("Admin.Common.Save")
+            </button>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function() {
+        bindBootstrapTabSelectEvent('pagespeed-edit');
+    });
+    </script>
+
+    <div class="content">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(false)
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p>
+                            @if (Model.IsRegisted == true)
+                            {
+                                @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.IsRegisted")
+                            }
+                            else
+                            {
+                                @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.IsNoRegisted")
+                                <br />
+                                <a href="https://www.foxnetsoft.com/noppagespeedtools" target="blank">Buy It Now</a>
+                            }
+                        </p>
+                            @if (!Model.Is64BitProcess)
+                            {
+                                <p style="color:red;">
+                                    You use x32 IIS application pool!!
+                                    <br />
+                                    You should use x64 IIS application pool. It's better for performance and plugin will be able to minify pictures.
+                                    <br />
+                                    How to use x64 mode for IIS application pool? Read this <a href="https://www.foxnetsoft.com/howtousex64mode" target="blank">link</a>.
+                                </p>
+                            }
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(m => m.Enable)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(m => m.Enable)
+                                @Html.ValidationMessageFor(m => m.Enable)
+                            </div>
+                        </div>
+                        <p>
+                            Check your page rank <a href="https://developers.google.com/speed/pagespeed/insights/" target="blank">https://developers.google.com/speed/pagespeed/insights/</a><br />
+                            or <a href="https://gtmetrix.com/" target="blank">https://gtmetrix.com/</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div id="pagespeed-edit" class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    @Html.RenderBootstrapTabHeader("tab-pictures", @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.Tab.Pictures"), true)
+                    @Html.RenderBootstrapTabHeader("tab-html", @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.Tab.HTML"))
+                    @Html.RenderBootstrapTabHeader("tab-css", @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.Tab.CSS"))
+                    @Html.RenderBootstrapTabHeader("tab-fonts", @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.Tab.Fonts"))
+                    @Html.RenderBootstrapTabHeader("tab-javascript", @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.Tab.JavaScript"))
+                    @Html.RenderBootstrapTabHeader("tab-cdn", @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.Tab.CDN"))
+                    @Html.RenderBootstrapTabHeader("tab-advanced", @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.Tab.Advanced"))
+                    @Html.RenderBootstrapTabHeader("tab-license", @T("Admin.FoxNetSoft.Plugin.Misc.Pagespeed.Tab.License"))
+                </ul>
+                <div class="tab-content">
+                    @Html.RenderBootstrapTabContent("tab-pictures", @TabPictures(), true)
+                    @Html.RenderBootstrapTabContent("tab-html", @TabHTML())
+                    @Html.RenderBootstrapTabContent("tab-css", @TabCSS())
+                    @Html.RenderBootstrapTabContent("tab-fonts", @TabFonts())
+                    @Html.RenderBootstrapTabContent("tab-javascript", @TabJavaScript())
+                    @Html.RenderBootstrapTabContent("tab-cdn", @TabCDN())
+                    @Html.RenderBootstrapTabContent("tab-advanced", @TabAdvanced())
+                    @Html.RenderBootstrapTabContent("tab-license", @TabLicense())
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*save selected tab name*@
+    <input type="hidden" id="selected-tab-name" name="selected-tab-name" value="@(Html.GetSelectedTabName())">
+}
+
+@helper TabPictures()
+{
+    @Html.Partial(String.Format(Model.PathView, "_Configure.TabPictures"), Model)
+}
+@helper TabHTML()
+{
+    @Html.Partial(String.Format(Model.PathView, "_Configure.TabHTML"), Model)
+}
+
+@helper TabCSS()
+{
+    @Html.Partial(String.Format(Model.PathView, "_Configure.TabCSS"), Model)
+}
+
+@helper TabFonts()
+{
+    @Html.Partial(String.Format(Model.PathView, "_Configure.TabFonts"), Model)
+}
+@helper TabJavaScript()
+{
+    @Html.Partial(String.Format(Model.PathView, "_Configure.TabJavaScript"), Model)
+}
+@helper TabCDN()
+{
+    @Html.Partial(String.Format(Model.PathView, "_Configure.TabCDN"), Model)
+}@helper TabAdvanced()
+{
+    @Html.Partial(String.Format(Model.PathView, "_Configure.TabAdvanced"), Model)
+}
+@helper TabLicense()
+{
+    @Html.Partial(String.Format(Model.PathView, "_Configure.TabLicense"), Model)
+}
